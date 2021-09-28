@@ -1,0 +1,84 @@
+/*
+* Program Name: COP 2220 Project 2
+*
+* Description: Project 2: Lottery Machine: This program will generate a *user-specified *amount of sets of 6 numbers that will be randomnly generated and *ensured to not repeat. 
+*
+* Author: Andrew-Sisson (N01470541)
+*
+* Date: October 30, 2020
+*/
+
+//Pre processor Directives
+#include <stdio.h>
+#include <stdlib.h> 
+#include <time.h>
+
+#define RANGE % 53 + 1 //Range of the random seed when using time
+
+void Lottery(int* var1, int* var2, int* var3, int* var4, int* var5, int* var);
+
+int main(void) {
+
+int sets;
+int n;
+
+int num1, num2, num3, num4, num5, num6;
+
+srand(time(NULL));
+
+do{
+  printf("Please enter the amount of sets you would like to print. Alternatively, enter 0 to end the program. ");
+  scanf("%d",&sets);
+
+  for(int i = 0; i < sets; i++) {
+    
+    Lottery(&num1, &num2, &num3, &num4, &num5, &num6);
+
+  printf("Set #%d: %d, %d, %d, %d, %d, %d\n",i + 1 , num1, num2, num3, num4, num5, num6); 
+  }
+
+} while(sets > 0);
+
+printf("You have chosen to quit the program.");
+return 0;
+}
+
+/*******************************************************************************
+* Function Name: Lottery                                                       *
+*                                                                              *
+* Input Parameters: This function has no input                                 *
+*                                                                              *
+* Description: This function generates a set of 6 random numbers within the    *
+* predefined range. It is also testing the numbers to ensure that none of the  *
+* numbers are repeating. If 2 of the numbers end up being equal, the latest    *
+* generated variable(The newest) is re-generated until it is unequal to any    *
+* other variable of the same set.                                              *
+*                                                                              *
+* Return Value: this function returns the user input                           *
+********************************************************************************/
+void Lottery( int* var1, int* var2, int* var3, int* var4, int* var5, int* var6)
+{ 
+    *var1 = rand() RANGE;
+   
+    *var2 = rand() RANGE;
+
+   while(*var1 == *var2){
+      *var2 = rand() RANGE;
+   }
+    *var3 = rand() RANGE;
+    while(*var3 == *var1 || *var3 == *var2){
+      *var3 = rand() RANGE;
+    }
+    *var4 = rand() RANGE;
+     while(*var4 == *var3 || *var4 == *var2 || *var4 == *var1){
+      *var4 = rand() RANGE;
+     }
+     *var5 = rand() RANGE;
+     while(*var5 == *var4 || *var5 == *var3 || *var5 == *var2 || *var5 == *var1){
+      *var5 = rand() RANGE;
+     }
+     *var6 = rand() RANGE;
+     while(*var6 == *var5 || *var6 == *var4 || *var6 == *var3 || *var6 == *var2 || *var6 == *var1){
+      *var6 = rand() RANGE;
+     }
+}
